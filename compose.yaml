@@ -16,6 +16,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /app
+        - action: rebuild
+          path: requeriments.txt
   db:
     image: postgres
     restart: always
