@@ -19,8 +19,12 @@ WORKDIR /app
 # Install PostgreSQL development files.
 RUN apk add --no-cache python3-dev postgresql-dev build-base
 
+# Run as a non-privileged user
+RUN adduser -D -u 1001 app
+USER app
+
 # Copy the source code into the container.
-COPY . .
+COPY --chown=app:app . .
 
 # Install Python dependencies.
 RUN pip install --upgrade pip
