@@ -21,10 +21,11 @@ RUN apk add --no-cache python3-dev postgresql-dev build-base
 
 # Run as a non-privileged user
 RUN adduser -D -u 1001 app
+RUN chown -R app:app /app
 USER app
 
 # Copy the source code into the container.
-COPY --chown=app:app . .
+COPY --chown=app:app . /app
 
 # Install Python dependencies.
 RUN pip install --upgrade pip
